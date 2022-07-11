@@ -26,20 +26,12 @@ namespace TicTacToe.Controllers
             return Ok(game);
         }
 
-        //[HttpPost]
-        //[Route("Start")]
-        //public IActionResult Start(IEnumerable<BattleShip> ships)
-        //{
-        //    BattleShipGame game = _battleShipGameService.StartGame(ships);
-        //    return Ok(game);
-        //}
-
-        //[HttpGet]
-        //[Route("Target")]
-        //public  IActionResult Target(int locationId)
-        //{
-        //    BattleShipGame game = _battleShipGameService.HitBattleShipByEachOther(locationId);
-        //    return Ok(game);
-        //}
+        [HttpPost]
+        [Route("Play")]
+        public IActionResult Play(PlayRequestModel request)
+        {
+            Game game = _service.Play(request);
+            return Ok(game);
+        }
     }
 }

@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/Api/.vs
+/src/Api/TicTacToe.Api/bin/Debug/net6.0
+/src/Api/TicTacToe.Api/obj
+/src/WebApp/.vscode

@@ -56,26 +56,26 @@ namespace TicTacToe.Services
 
         private void CalculateCellHorizontally(PlayRequestModel request)
         {
-            //var count = 0;
-            //int xAccess = request.Coordinates[0];
-            //int yAccess = request.Coordinates[1];
+            var count = 0;
+            int xAccess = request.Coordinates[0];
+            int yAccess = request.Coordinates[1];
 
-            //for (int i = xAccess; (i > (xAccess - 5)) && (i > -1); i--)
-            //{
-            //    if (s_game.Cells[i][yAccess] == request.PlayerId)
-            //        count++;
-            //    else
-            //        break;
-            //}
-            //if (count == 5)
-            //    return;
-            //for (int i = (xAccess + 1); (i <= (xAccess + 5)) && (i < 15); i++)
-            //{
-            //    if (s_game.Cells[i][yAccess] == request.PlayerId)
-            //        count++;
-            //    else
-            //        break;
-            //}
+            for (int i = xAccess, j = yAccess; (i > (xAccess - 5)) && (i > -1) && (j > -1); i--, j--)
+            {
+                if (s_game.Cells[i][j] == request.PlayerId)
+                    count++;
+                else
+                    break;
+            }
+            if (count == 5)
+                return;
+            for (int i = (xAccess + 1), j = (yAccess + 1); (i <= (xAccess + 5)) && (i < 15) && (j < 15); i++, j++)
+            {
+                if (s_game.Cells[i][j] == request.PlayerId)
+                    count++;
+                else
+                    break;
+            }
         }
 
         private void CalculateCellCrossTopToDown(PlayRequestModel request)

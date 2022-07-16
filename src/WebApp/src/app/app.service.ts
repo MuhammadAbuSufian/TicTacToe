@@ -1,5 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../environments/environment";
+import {MoveModel} from "./move.model";
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +10,13 @@ export class AppService{
   constructor(private http: HttpClient) {
   }
 
-  getData(){
-    return this.http.get('https://localhost:5001/api/Scratch');
+  initializeGame(){
+    const url = environment.baseUrl + 'Game/Initialize';
+    return this.http.get(url);
   }
 
-  updateData(data: any){
-    return this.http.put('https://localhost:5001/api/Scratch', data);
+  pleyMove(data: MoveModel){
+    const url = environment.baseUrl + 'Game/Play';
+    return this.http.post(url, data);
   }
 }

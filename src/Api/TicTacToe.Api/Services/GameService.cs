@@ -15,22 +15,25 @@ namespace TicTacToe.Services
 
         public Game Play(PlayRequestModel request)
         {
+            s_game.ActivePlayer = s_game.Players.FirstOrDefault(p => p.Id != request.PlayerId);
+            if (request.Coordinates.Length == 0)
+                return s_game;
             s_game.Cells[request.Coordinates[0]][request.Coordinates[1]] = request.PlayerId;
             SetWinner(request);
-
-                return s_game;
+            return s_game;
         }
 
         private void SetWinner(PlayRequestModel request)
         {
-
-            CalculateCellVartically(request);
-            CalculateCellHorizontally(request);
-            CalculateCellCrossTopToDown(request);
-            CalculateCellCrossDownToTop(request);
+            if(CalculateCellVartically(request) 
+                || CalculateCellHorizontally(request)
+                || CalculateCellCrossTopToDown(request)
+                || CalculateCellCrossDownToTop(request))
+                s_game.Winner = s_game.Players
+                    .Where(p => p.Id == request.PlayerId).FirstOrDefault();
         }
 
-        private void CalculateCellVartically(PlayRequestModel request)
+        private bool CalculateCellVartically(PlayRequestModel request)
         {
             var count = 0;
             int xAccess = request.Coordinates[0];
@@ -44,7 +47,7 @@ namespace TicTacToe.Services
                     break;
             }
             if (count == 5)
-                return;
+                return true;
             for (int i = (yAccess + 1); (i <= (yAccess + 5)) && (i < 15); i++)
             {
                 if (s_game.Cells[xAccess][i] == request.PlayerId)
@@ -52,9 +55,12 @@ namespace TicTacToe.Services
                 else
                     break;
             }
+            if(count == 5)
+                return true;
+            return false;
         }
 
-        private void CalculateCellHorizontally(PlayRequestModel request)
+        private bool CalculateCellHorizontally(PlayRequestModel request)
         {
             var count = 0;
             int xAccess = request.Coordinates[0];
@@ -68,7 +74,7 @@ namespace TicTacToe.Services
                     break;
             }
             if (count == 5)
-                return;
+                return true;
             for (int i = (xAccess + 1), j = (yAccess + 1); (i <= (xAccess + 5)) && (i < 15) && (j < 15); i++, j++)
             {
                 if (s_game.Cells[i][j] == request.PlayerId)
@@ -76,9 +82,12 @@ namespace TicTacToe.Services
                 else
                     break;
             }
+            if (count == 5)
+                return true;
+            return false;
         }
 
-        private void CalculateCellCrossTopToDown(PlayRequestModel request)
+        private bool CalculateCellCrossTopToDown(PlayRequestModel request)
         {
             var count = 0;
             int xAccess = request.Coordinates[0];
@@ -92,7 +101,7 @@ namespace TicTacToe.Services
                     break;
             }
             if (count == 5)
-                return;
+                return true;
             for (int j = (yAccess - 1), i = (xAccess + 1); (i <= (xAccess + 5)) && (i < 15) && (j > -1); j--, i++)
             {
                 if (s_game.Cells[i][j] == request.PlayerId)
@@ -100,9 +109,12 @@ namespace TicTacToe.Services
                 else
                     break;
             }
+            if (count == 5)
+                return true;
+            return false;
         }
 
-        private void CalculateCellCrossDownToTop(PlayRequestModel request)
+        private bool CalculateCellCrossDownToTop(PlayRequestModel request)
         {
             var count = 0;
             int xAccess = request.Coordinates[0];
@@ -116,7 +128,7 @@ namespace TicTacToe.Services
                     break;
             }
             if (count == 5)
-                return;
+                return true;
             for (int i = (xAccess - 1), j = (yAccess + 1); (j <= (yAccess + 5)) && (j < 15) && (i > -1); i--, j++)
             {
                 if (s_game.Cells[i][j] == request.PlayerId)
@@ -124,6 +136,9 @@ namespace TicTacToe.Services
                 else
                     break;
             }
+            if (count == 5)
+                return true;
+            return false;
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Text.Json;
 namespace TicTacToe.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class GameController : ControllerBase
     {
 

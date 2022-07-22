@@ -3,8 +3,8 @@
   <tr *ngFor="let row of counter(15); let i = index">
     <td *ngFor="let col of counter(15); let j = index" class="cell" >
       <div class="item" (click)="fillCell(i, j)"
-           [ngClass]="(game.cells[i][j] == 1) ? 'player1': 'nai' "
-           [ngClass]="(game.cells[i][j] == 2) ? 'player2': 'nai' ">
+           [ngClass]="(game.cells[i][j] == 1) ? 'player1 item-locked': 'nai' "
+           [ngClass]="(game.cells[i][j] == 2) ? 'player2 item-locked': 'nai' ">
         <span ></span>
       </div>
     </td>

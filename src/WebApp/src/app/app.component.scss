@@ -11,14 +11,9 @@
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  background: #dce7fd;
   border: 2px solid #a9cafd;
 }
 .item-locked{
-  background: #e4e9f5;
-}
-.item-unlocked{
-  background: #a9cafd;
   pointer-events: none;
 }
 table{

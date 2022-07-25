@@ -39,18 +39,18 @@ namespace TicTacToe.Services
             int xAccess = request.Coordinates[0];
             int yAccess = request.Coordinates[1];
 
-            for (int i = yAccess; (i > (yAccess - 5)) && (i > -1); i--)
+            for (int i = xAccess, j = yAccess ; (j > (yAccess - 5)) && (j > -1); j--)
             {
-                if (s_game.Cells[xAccess][i] == request.PlayerId)
+                if (s_game.Cells[i][j] == request.PlayerId)
                     count++;
                 else
                     break;
             }
             if (count == 5)
                 return true;
-            for (int i = (yAccess + 1); (i <= (yAccess + 5)) && (i < 15); i++)
+            for (int i = xAccess, j = (yAccess + 1); (j <= (yAccess + 5)) && (j < 15); j++)
             {
-                if (s_game.Cells[xAccess][i] == request.PlayerId)
+                if (s_game.Cells[i][j] == request.PlayerId)
                     count++;
                 else
                     break;

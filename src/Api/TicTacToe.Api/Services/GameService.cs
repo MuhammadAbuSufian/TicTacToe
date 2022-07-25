@@ -32,8 +32,8 @@ namespace TicTacToe.Services
                 s_game.Winner = s_game.Players
                     .Where(p => p.Id == request.PlayerId).FirstOrDefault();
         }
-
-        private bool CalculateCellVartically(PlayRequestModel request)
+        
+        private bool CalculateCellHorizontally(PlayRequestModel request)
         {
             var count = 0;
             int xAccess = request.Coordinates[0];
@@ -60,13 +60,13 @@ namespace TicTacToe.Services
             return false;
         }
 
-        private bool CalculateCellHorizontally(PlayRequestModel request)
+        private bool CalculateCellVartically(PlayRequestModel request)
         {
             var count = 0;
             int xAccess = request.Coordinates[0];
             int yAccess = request.Coordinates[1];
 
-            for (int i = xAccess, j = yAccess; (i > (xAccess - 5)) && (i > -1) && (j > -1); i--, j--)
+            for (int i = xAccess, j = yAccess; (i > (xAccess - 5)) && (i > -1) && (j > -1); i--)
             {
                 if (s_game.Cells[i][j] == request.PlayerId)
                     count++;
@@ -75,7 +75,7 @@ namespace TicTacToe.Services
             }
             if (count == 5)
                 return true;
-            for (int i = (xAccess + 1), j = (yAccess + 1); (i <= (xAccess + 5)) && (i < 15) && (j < 15); i++, j++)
+            for (int i = (xAccess + 1), j = (yAccess); (i <= (xAccess + 5)) && (i < 15) && (j < 15); i++)
             {
                 if (s_game.Cells[i][j] == request.PlayerId)
                     count++;
@@ -86,8 +86,7 @@ namespace TicTacToe.Services
                 return true;
             return false;
         }
-
-        private bool CalculateCellCrossTopToDown(PlayRequestModel request)
+        private bool CalculateCellCrossDownToTop(PlayRequestModel request)
         {
             var count = 0;
             int xAccess = request.Coordinates[0];
@@ -114,13 +113,13 @@ namespace TicTacToe.Services
             return false;
         }
 
-        private bool CalculateCellCrossDownToTop(PlayRequestModel request)
+        private bool CalculateCellCrossTopToDown(PlayRequestModel request)
         {
             var count = 0;
             int xAccess = request.Coordinates[0];
             int yAccess = request.Coordinates[1];
 
-            for (int i = xAccess, j = yAccess; (j > (yAccess - 5)) && (j > -1) && (i < 15); i++, j--)
+            for (int i = xAccess, j = yAccess; (i > (xAccess - 5)) && (i > -1) && (j > -1); i--, j--)
             {
                 if (s_game.Cells[i][j] == request.PlayerId)
                     count++;
@@ -129,7 +128,7 @@ namespace TicTacToe.Services
             }
             if (count == 5)
                 return true;
-            for (int i = (xAccess - 1), j = (yAccess + 1); (j <= (yAccess + 5)) && (j < 15) && (i > -1); i--, j++)
+            for (int i = (xAccess + 1), j = (yAccess + 1); (i <= (xAccess + 5)) && (i < 15) && (j < 15); i++, j++)
             {
                 if (s_game.Cells[i][j] == request.PlayerId)
                     count++;

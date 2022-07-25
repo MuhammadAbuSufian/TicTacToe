@@ -34,7 +34,8 @@ export class AppComponent implements OnInit{
     this.appService.pleyMove(moveRequest).subscribe((game: any)=> {
       this.game = game;
       if (this.game.winner != null){
-        alert('winner ' +  this.game.winner.name)
+        alert('winner ' +  this.game.winner.name);
+        this.initialize();
       }
     });
   }
